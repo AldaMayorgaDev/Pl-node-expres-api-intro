@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "nombre": "Terminal de venta",
+    "precio": 1200,
+    "categoria": "PV200"
+  },
+  {
+    "id": 2,
+    "nombre": "Impresora Brother",
+    "precio": 2200,
+    "categoria": "EC200"
+  },
+  {
+    "id": 3,
+    "nombre": "Papel de ticket",
+    "precio": 100,
+    "categoria": "IO200"
+  },
+  {
+    "id": 4,
+    "nombre": "Lápiz óptico",
+    "precio": 450,
+    "categoria": "EL200"
+  },
+  {
+    "id": 5,
+    "nombre": "Impresora HP",
+    "precio": 2200,
+    "categoria": "EC200"
+  },
+  {
+    "id": 6,
+    "nombre": "Cinta de impresión",
+    "precio": 80,
+    "categoria": "IO200"
+  },
+  {
+    "id": 7,
+    "nombre": "Teclado ergonómico",
+    "precio": 600,
+    "categoria": "EL200"
+  },
+  {
+    "id": 8,
+    "nombre": "Mouse inalámbrico",
+    "precio": 350,
+    "categoria": "EL200"
+  },
+  {
+    "id": 9,
+    "nombre": "Scanner de código de barras",
+    "precio": 1300,
+    "categoria": "PV200"
+  },
+  {
+    "id": 10,
+    "nombre": "Monitor LED 24''",
+    "precio": 2100,
+    "categoria": "EL200"
+  },
+  {
+    "id": 11,
+    "nombre": "Monitor LED 27''",
+    "precio": 2600,
+    "categoria": "EL200"
+  },
+  {
+    "id": 12,
+    "nombre": "UPS 1000VA",
+    "precio": 1800,
+    "categoria": "EC200"
+  },
+  {
+    "id": 13,
+    "nombre": "Switch 8 puertos",
+    "precio": 900,
+    "categoria": "EC200"
+  },
+  {
+    "id": 14,
+    "nombre": "Router inalámbrico",
+    "precio": 1100,
+    "categoria": "EC200"
+  },
+  {
+    "id": 15,
+    "nombre": "Cable HDMI",
+    "precio": 120,
+    "categoria": "IO200"
+  },
+  {
+    "id": 16,
+    "nombre": "Papel fotográfico",
+    "precio": 150,
+    "categoria": "IO200"
+  },
+  {
+    "id": 17,
+    "nombre": "Cámara web Full HD",
+    "precio": 800,
+    "categoria": "EL200"
+  },
+  {
+    "id": 18,
+    "nombre": "Disco duro externo 1TB",
+    "precio": 1500,
+    "categoria": "EC200"
+  },
+  {
+    "id": 19,
+    "nombre": "Memoria USB 64GB",
+    "precio": 300,
+    "categoria": "IO200"
+  },
+  {
+    "id": 20,
+    "nombre": "Hub USB 4 puertos",
+    "precio": 250,
+    "categoria": "IO200"
+  },
+  {
+    "id": 21,
+    "nombre": "Cartucho de tinta negra",
+    "precio": 280,
+    "categoria": "IO200"
+  },
+  {
+    "id": 22,
+    "nombre": "Cartucho de tinta color",
+    "precio": 300,
+    "categoria": "IO200"
+  },
+  {
+    "id": 23,
+    "nombre": "Tableta gráfica",
+    "precio": 2200,
+    "categoria": "EL200"
+  },
+  {
+    "id": 24,
+    "nombre": "Repetidor WiFi",
+    "precio": 700,
+    "categoria": "EC200"
+  },
+  {
+    "id": 25,
+    "nombre": "Enrutador Gigabit",
+    "precio": 1300,
+    "categoria": "EC200"
+  },
+  {
+    "id": 26,
+    "nombre": "Adaptador Bluetooth USB",
+    "precio": 150,
+    "categoria": "IO200"
+  },
+  {
+    "id": 27,
+    "nombre": "Terminal portátil",
+    "precio": 3400,
+    "categoria": "PV200"
+  },
+  {
+    "id": 28,
+    "nombre": "Estabilizador de voltaje",
+    "precio": 650,
+    "categoria": "EC200"
+  },
+  {
+    "id": 29,
+    "nombre": "Base para laptop",
+    "precio": 400,
+    "categoria": "IO200"
+  },
+  {
+    "id": 30,
+    "nombre": "Enfriador para laptop",
+    "precio": 350,
+    "categoria": "IO200"
+  },
+  {
+    "id": 31,
+    "nombre": "Antena WiFi USB",
+    "precio": 320,
+    "categoria": "EC200"
+  },
+  {
+    "id": 32,
+    "nombre": "Lector de tarjetas SD",
+    "precio": 200,
+    "categoria": "IO200"
+  },
+  {
+    "id": 33,
+    "nombre": "Caja registradora",
+    "precio": 2100,
+    "categoria": "PV200"
+  },
+  {
+    "id": 34,
+    "nombre": "Balanza digital",
+    "precio": 1400,
+    "categoria": "PV200"
+  },
+  {
+    "id": 35,
+    "nombre": "Pantalla táctil",
+    "precio": 3000,
+    "categoria": "PV200"
+  },
+  {
+    "id": 36,
+    "nombre": "Soporte VESA para monitor",
+    "precio": 250,
+    "categoria": "IO200"
+  },
+  {
+    "id": 37,
+    "nombre": "Conector RJ45",
+    "precio": 50,
+    "categoria": "IO200"
+  },
+  {
+    "id": 38,
+    "nombre": "Punto de venta móvil",
+    "precio": 1800,
+    "categoria": "PV200"
+  },
+  {
+    "id": 39,
+    "nombre": "Lector NFC",
+    "precio": 950,
+    "categoria": "PV200"
+  },
+  {
+    "id": 40,
+    "nombre": "Batería portátil para terminal",
+    "precio": 600,
+    "categoria": "PV200"
+  }
+]
