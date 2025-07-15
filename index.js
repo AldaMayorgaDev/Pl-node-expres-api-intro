@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { json } from 'express';
 import { faker } from '@faker-js/faker'; //Generador de Data
 import routerApi from './src/routes/index.routes.js';
 
@@ -6,6 +6,8 @@ const app = express();
 const PORT = 3004;
 //const IP= '192.168.1.15';
 
+//uso de json
+app.use(express.json())
 
 //ruta
 app.get('/', (req, res)=>{

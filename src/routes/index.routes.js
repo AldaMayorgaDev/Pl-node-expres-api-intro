@@ -1,9 +1,13 @@
+import { Router } from 'express';
 import usuariosRouter from './usuarios.routes.js';
 import productosRouter from './productos.routes.js';
 
+
 function apiRoutes (app){
-  app.use('/usuarios', usuariosRouter);
-  app.use('/productos', productosRouter);
+  const router = Router();
+  app.use('/api/v1', router); //Endpoint General
+  router.use('/usuarios', usuariosRouter); // localhost:3004/api/v1/usuarios
+  router.use('/productos', productosRouter);
 }
 
 
