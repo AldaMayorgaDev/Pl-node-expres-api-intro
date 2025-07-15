@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 import { faker } from '@faker-js/faker'; //Generador de Data
 import routerApi from './src/routes/index.routes.js';
+import {  logError, errorHandler, boomErrorHandler} from './src/middlewares/error.handler.js';
 
 const app = express();
 const PORT = 3004;
@@ -20,6 +21,11 @@ app.get('/nueva-ruta', (req, res)=>{
 
 
 routerApi(app);
+
+//Los middlewares de tipo error deben usados después del routing y poniendo atención en el orden que se llaman dado que asi se ejecutan
+app.use(logError);
+app.use(boomErrorHandler);
+app.use(errorHandler);
 
 /* app.get('/productos', (req, res)=>{
   res.json([

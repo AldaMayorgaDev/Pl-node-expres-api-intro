@@ -47,20 +47,20 @@ router.get('/', async (req, res) => {
   });
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
+
+  try {
   const idBuscado = parseInt(req.params.id);
   //console.log( idBuscado)
-
   const productoBuscado = await instanciaServicio.buscarUno(idBuscado)
-  if (!productoBuscado) {
-    return res.status(404).json({
-      msg: 'Producto no encontrado',
+    res.status(200).json({
+      data: productoBuscado,
     });
-  }
 
-  res.status(200).json({
-    data: productoBuscado,
-  });
+  } catch (error) {
+    next(error); //Llama al middleware de tipo error explicitamente
+
+  }
 });
 
 router.get('/:idProducto/categorias/:categoria', (req, res) => {
@@ -128,7 +128,7 @@ router.put('/:id', (req, res) => {
 });
 
 
-router.patch('/:id', async (req, res)=>{
+router.patch('/:id', async (req, res, next)=>{
 
   try {
       const idBuscado = req.params.id;
@@ -139,9 +139,7 @@ router.patch('/:id', async (req, res)=>{
       data: productoActualizado}
   );
   } catch (error) {
-    return res.status(404).json({
-      msg: error.message
-    })
+      next(error)
   }
 
 })

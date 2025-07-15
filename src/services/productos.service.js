@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import  boom  from "@hapi/boom"; //libreria para manejar los errores con statusCode
 
 class ProductosService {
 
@@ -23,7 +24,8 @@ class ProductosService {
         nombre: faker.commerce.productName(),
         descripcion: faker.commerce.productDescription,
         precio: parseFloat(faker.commerce.price()),
-        imagen: faker.image.url()
+        imagen: faker.image.url(),
+        isBlock : faker.datatype.boolean(),
       })
     }
   }
@@ -52,7 +54,15 @@ class ProductosService {
 
   //findOne()
   async buscarUno(id){
-    return this.productos.find((producto) => producto.id === id)
+    const producto =  this.productos.find((producto) => producto.id === id);
+    if (!producto) {
+      throw boom.notFound('Producto no encontrado');
+    }
+    //regla de negocio validando si el porducto esta bloqueado o no
+    if (producto.isBlock) {
+      throw boom.conflict('Producto está bloqueado');
+    }
+    return producto;
   }
 
   //update()
@@ -60,7 +70,7 @@ class ProductosService {
     const index = this.productos.findIndex((producto) => producto.id === parseInt(id))
 
     if (index === -1) {
-      throw new Error ('Producto No Encontrado')
+      throw boom.notFound('Producto no encontrado');
     } else {
       //Persistir la informacion existente y actualizando co la nueva
       const producto = this.productos[index]
@@ -77,7 +87,7 @@ class ProductosService {
     const indexAEliminar = this.productos.findIndex((producto)=>producto.id === parseInt(id))
 
     if(indexAEliminar === -1){
-      throw new Error ('Producto no encontrado')
+      throw boom.notFound('Producto no encontrado');
     }
 
     this.productos.splice(indexAEliminar, 1);
