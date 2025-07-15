@@ -7,6 +7,11 @@ import data from '../db/data.json' with { type: 'json' };
 
 //Importando servicio
 import ProductosService from '../services/productos.service.js';
+import validatorHandler from '../middlewares/validator.handler.js';
+import {  crearProductoSchema,
+  actualizarProductoSchema,
+  buscarProductoSchema,
+  eliminarProductoSchema} from '../schemas/producto.schema.js'
 
 const router = Router();
 const instanciaServicio = new ProductosService;
@@ -47,7 +52,7 @@ router.get('/', async (req, res) => {
   });
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', validatorHandler(buscarProductoSchema, 'params'), async (req, res, next) => {
 
   try {
   const idBuscado = parseInt(req.params.id);
@@ -83,7 +88,7 @@ router.get('/:idProducto/categorias/:categoria', (req, res) => {
   });
 });
 
-router.post('/', async (req, res) => {
+router.post('/',validatorHandler(crearProductoSchema, 'body') ,async (req, res) => {
   const body = req.body;
   const nuevoProducto = await instanciaServicio.crear(body);
   res
@@ -128,7 +133,7 @@ router.put('/:id', (req, res) => {
 });
 
 
-router.patch('/:id', async (req, res, next)=>{
+router.patch('/:id',validatorHandler(buscarProductoSchema, 'params'),validatorHandler(actualizarProductoSchema, 'body'), async (req, res, next)=>{
 
   try {
       const idBuscado = req.params.id;
@@ -144,9 +149,7 @@ router.patch('/:id', async (req, res, next)=>{
 
 })
 
-
-
-router.delete('/:id', async (req, res)=>{
+router.delete('/:id',validatorHandler(eliminarProductoSchema, 'params'), async (req, res)=>{
   const idBuscado = req.params.id;
 
   const sinProductoEliminado = await instanciaServicio.eliminar(idBuscado)
