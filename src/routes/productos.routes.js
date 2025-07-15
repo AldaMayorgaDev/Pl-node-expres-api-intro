@@ -1,8 +1,15 @@
 import { Router } from 'express';
-//import data from '../db/data.json' assert {type: 'json'};
+
+/*
+//Si ocupamos los productos de un archivo .json
 import data from '../db/data.json' with { type: 'json' };
+*/
+
+//Importando servicio
+import ProductosService from '../services/productos.service.js';
 
 const router = Router();
+const instanciaServicio = new ProductosService;
 
 //! Los endpoints específicos ejemplo /?limits=,  /filtros van siempre antes de los dinámicos ejemplo  productos/ , /:id
 
@@ -12,12 +19,10 @@ limit	Cuántos registros devolver (ej. 10, 20, 50, etc.)
 offset	Desde qué posición empezar a devolver los registros
 */
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   const { limit, offset } = req.query;
-  console.log('🚀 ~ router.get ~ limit, offset:', limit, offset);
-
   if (limit && offset) {
-    const productosPaginados = data.slice(
+    const productosPaginados = await instanciaServicio.buscarTodos().slice(
       parseInt(offset),
       parseInt(limit) + parseInt(offset),
     );
@@ -28,24 +33,25 @@ router.get('/', (req, res) => {
     });
   } else {
     return res.status(200).json({
-      data: data,
+      data: await instanciaServicio.buscarTodos(),
     });
   }
 });
 
 // Todos los productos
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+  const listaProductos = await instanciaServicio.buscarTodos()
   res.json({
     status: 200,
-    data: data,
+    data: listaProductos
   });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const idBuscado = parseInt(req.params.id);
   //console.log( idBuscado)
 
-  const productoBuscado = data.find((producto) => producto.id === idBuscado);
+  const productoBuscado = await instanciaServicio.buscarUno(idBuscado)
   if (!productoBuscado) {
     return res.status(404).json({
       msg: 'Producto no encontrado',
@@ -77,19 +83,13 @@ router.get('/:idProducto/categorias/:categoria', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const body = req.body;
-  data.push({
-    id: Symbol(),
-    nombre: body.nombre,
-    precio: body.precio,
-    categoria: body.categoria,
-  });
-
+  const nuevoProducto = await instanciaServicio.crear(body);
   res
     .json({
       msg: 'Producto creado',
-      producto: body,
+      producto: nuevoProducto,
     })
     .status(201);
 });
@@ -102,7 +102,7 @@ router.put('/:id', (req, res) => {
   let productoAActualizar = data.find(
     (producto) => producto.id === parseInt(idBuscado),
   );
-  console.log('🚀 ~ router.put ~ productoAActualizar:', productoAActualizar);
+  //console.log('🚀 ~ router.put ~ productoAActualizar:', productoAActualizar);
 
   if (!productoAActualizar) {
     return res.status(404).json({
@@ -128,56 +128,33 @@ router.put('/:id', (req, res) => {
 });
 
 
-router.patch('/:id', (req, res)=>{
-  const idBuscado = req.params.id;
-  const dataActualizada = req.body;
+router.patch('/:id', async (req, res)=>{
 
-  // buscar el elemento a actualizar
-  const productoAActualizar = data.find(producto => producto.id === parseInt(idBuscado));
-
-  if(!productoAActualizar){
-    return res.status(404).json({
-      msg: "Producto no encontrado"
-    })
-  }else{
-
-  // Lista blanca de campos que sí se pueden actualizar
-  const camposPermitidosParaActualizar = ['nombre', 'precio', 'categoria'];
-
-  // Recorremos solo los campos permitidos
-  for (const key of camposPermitidosParaActualizar) {
-    if (dataActualizada[key] !== undefined) {
-      productoAActualizar[key] = dataActualizada[key];
-    }
-  }
-
+  try {
+      const idBuscado = req.params.id;
+  const nuevaInfo = req.body;
+  const productoActualizado=  await instanciaServicio.actualizar(idBuscado, nuevaInfo);
     return res.status(200).json({
-    msg: 'Producto actualizado correctamente',
-    data: productoAActualizar
-  });
+      msg: 'Producto actualizado correctamente',
+      data: productoActualizado}
+  );
+  } catch (error) {
+    return res.status(404).json({
+      msg: error.message
+    })
   }
+
 })
 
 
 
-router.delete('/:id', (req, res)=>{
+router.delete('/:id', async (req, res)=>{
   const idBuscado = req.params.id;
 
-  const dataFiltrada =  data.filter(producto => producto.id !== parseInt(idBuscado));
+  const sinProductoEliminado = await instanciaServicio.eliminar(idBuscado)
 
-  console.log('dataFiltrada', dataFiltrada);
-
-  if(!dataFiltrada){
-    return res.status(404).json({
-      msg: "No se encontró el prodcuto"
-    })
-  }
-  else{
-    return res.status(200).json({
-      msg: "Producto eliminado",
-      data: dataFiltrada,
-      elementoEliminado: data.find(producto => producto.id === parseInt(idBuscado))
-    })
-  }
+  res.status(200).json({
+      msg:  sinProductoEliminado,
+  })
 })
 export default router;
