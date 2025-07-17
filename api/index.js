@@ -1,22 +1,22 @@
 import express, { json } from 'express';
 import { faker } from '@faker-js/faker'; //Generador de Data
-import cors from 'cors'; //permitir conexines desde otros dominios
-import routerApi from './src/routes/index.routes.js';
-import {  logError, errorHandler, boomErrorHandler} from './src/middlewares/error.handler.js';
+import cors from 'cors'; //permitir conexiones desde otros dominios
+import routerApi from './routes/index.routes.js';
+import {  logError, errorHandler, boomErrorHandler} from './middlewares/error.handler.js';
 
 
 const app = express();
-const PORT = 3004;
+const PORT = process.env.PORT || 3004;
 //const IP= '192.168.1.15';
 
 //uso de json
 app.use(express.json())
 
 //uso de cors
-const origenesPermitidosParaPeticiones = ['http://localhost:5500', 'http://127.0.0.1:5500' , 'http://127.0.0.1:5731/', "https://myapp.com.mx", " 192.168.137.1:3004", "http://localhost:3004"];
+const origenesPermitidosParaPeticiones = ['http://localhost:5500', 'http://127.0.0.1:5500' , 'http://127.0.0.1:5731/', 'https://myapp.com.mx', '192.168.137.1:3004', 'http://localhost:3004', '*'];
 const options ={
   origin: (origin, callback)=>{
-    if(origenesPermitidosParaPeticiones.includes(origin)){
+    if(!origin || origenesPermitidosParaPeticiones.includes(origin)){
         callback(null, true); //null es de errores, true es que permite el acceso
     }
     else{
@@ -24,14 +24,14 @@ const options ={
     }
   }
 }
-//app.use(cors(options)); // habilitando cualquier dominio u origen
+app.use(cors(options)); // habilitando cualquier dominio u origen
 
 //ruta
-app.get('/', (req, res)=>{
-  res.send('Hola mundito');
+app.get('api/', (req, res)=>{
+  res.send('Hola mundo');
 })
 
-app.get('/nueva-ruta', (req, res)=>{
+app.get('api/nueva-ruta', (req, res)=>{
   res.send('Estás visitando una nueva ruta')
 });
 
