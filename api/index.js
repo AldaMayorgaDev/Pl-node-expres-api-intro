@@ -28,7 +28,7 @@ app.use(cors(options)); // habilitando cualquier dominio u origen
 
 //ruta
 app.get('api/', (req, res)=>{
-  res.send('Hola mundo');
+  res.send('Hola mundo :D');
 })
 
 app.get('api/nueva-ruta', (req, res)=>{
@@ -72,4 +72,4 @@ app.listen(PORT, ()=>{
   console.log(`Servidor corriendo en http://localhost:${PORT}`)
 })
 
-export default app;
+module.exports = app
