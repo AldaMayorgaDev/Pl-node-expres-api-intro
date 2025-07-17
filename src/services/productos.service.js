@@ -1,5 +1,9 @@
-import { faker } from "@faker-js/faker";
+//import { faker } from "@faker-js/faker";
 import  boom  from "@hapi/boom"; //libreria para manejar los errores con statusCode
+
+import { Faker, es_MX } from '@faker-js/faker';
+
+const faker = new Faker({ locale: es_MX });
 
 class ProductosService {
 
@@ -17,6 +21,7 @@ class ProductosService {
 
   //Generate()
   async generar(){
+
     const cantidadDeProductos = 100;
     for (let index = 0; index < cantidadDeProductos; index++) {
       this.productos.push({
@@ -26,6 +31,7 @@ class ProductosService {
         precio: parseFloat(faker.commerce.price()),
         imagen: faker.image.url(),
         isBlock : faker.datatype.boolean(),
+        nombreCliente: faker.person.fullName()
       })
     }
   }
