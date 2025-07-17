@@ -67,9 +67,12 @@ app.use(errorHandler);
   ]
   )
 }) */
-app.listen(PORT, ()=>{
+/* app.listen(PORT, ()=>{
   //console.log(`Servidor http://${IP}:${PORT}`);
   console.log(`Servidor corriendo en http://localhost:${PORT}`)
-})
+}) */
 
-export default app;
+// ✅ Exportar handler compatible con Vercel
+export default function handler(req, res) {
+  return app(req, res);
+}
